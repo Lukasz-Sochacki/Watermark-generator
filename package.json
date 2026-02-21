@@ -1,0 +1,10 @@
+{
+  "name": "Watermark-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Łukasz Sochacki <sochacki.luki@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "0.6.4"
+  }
+}
