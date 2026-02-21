@@ -1,5 +1,6 @@
 const Jimp = require('jimp');
 
+//TextToImage
 const addTextWatermarkToImage = async function (inputFile, outputFile, text) {
   const image = await Jimp.read(inputFile);
   const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
@@ -16,4 +17,30 @@ addTextWatermarkToImage(
   './test.jpg',
   './test-with-watermark.jpg',
   'Hello world',
+);
+
+//ImageToImage
+
+const addImageWatermarkToImage = async function (
+  inputFile,
+  outputFile,
+  watermarkFile,
+) {
+  const image = await Jimp.read(inputFile);
+  const watermark = await Jimp.read(watermarkFile);
+  const x = image.getWidth() / 2 - watermark.getWidth() / 2;
+  const y = image.getHeight() / 2 - watermark.getHeight() / 2;
+
+  //composite method for joining two images
+  image.composite(watermark, x, y, {
+    mode: Jimp.BLEND_SOURCE_OVER,
+    opacitySource: 0.5,
+  });
+  await image.quality(100).writeAsync(outputFile);
+};
+
+addImageWatermarkToImage(
+  './test.jpg',
+  './test-with-watermark2.jpg',
+  './logo.png',
 );
